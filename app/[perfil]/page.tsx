@@ -97,8 +97,14 @@ export default async function PaginaPerfil({ params }: { params: Promise<{ perfi
                 <div key={n} slot={`description-${n + 1}`} className="passo">
                   <p>{p.texto.replace("{cms}", CMS)}</p>
                   {p.onde && <p className="onde">Onde: {p.onde}</p>}
+                  {p.gif && existsSync(join(process.cwd(), "public/gifs", p.gif)) && (
+                    // GIF só na tela; o PDF fica com o print logo abaixo
+                    <div className={`tela tela--${p.tipo ?? "acao"} so-tela`}>
+                      <DsImage src={`/gifs/${p.gif}`} alt={`Animação do CMS: ${p.titulo}`} fit="contain" rounded loading="lazy" />
+                    </div>
+                  )}
                   {p.print && existsSync(join(process.cwd(), "public/prints", perfil.id, p.print)) ? (
-                    <div className={`tela tela--${p.tipo ?? "acao"}`}>
+                    <div className={`tela tela--${p.tipo ?? "acao"}${p.gif ? " so-pdf" : ""}`}>
                       <DsImage
                         src={`/prints/${perfil.id}/${p.print}`}
                         alt={`Tela do CMS: ${p.titulo}`}

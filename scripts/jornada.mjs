@@ -6,7 +6,7 @@
 //   ... --video                                  grava em public/videos/<perfil>-<jornada>.webm
 //   ... --limpar                                 roda a limpeza da jornada no fim (ex.: excluir a carta de teste)
 // Jornada nova: copie um arquivo de scripts/jornadas/ (formato no topo de cada um).
-import { copyFileSync, existsSync, mkdirSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { CMS, ESCONDER, abrirMenu, acoes, conectar, legenda } from "./comum.mjs";
 
 const args = process.argv.slice(2);
@@ -43,6 +43,9 @@ const ctx = VIDEO
     })
   : logado;
 const page = await ctx.newPage();
+const t0 = Date.now(); // o vídeo começa junto com a página: os tempos dos passos (para o GIF) contam daqui
+const seg = () => +((Date.now() - t0) / 1000).toFixed(1);
+const tempos = [];
 await page.setViewportSize({ width: 1440, height: 900 });
 await abrirMenu(page);
 await page.addInitScript((css) => {
@@ -64,9 +67,11 @@ await a.pausa(2000);
 let falhou = false;
 for (const p of j.passos) {
   n += 1;
+  const de = seg();
   await legenda(page, `Passo ${n} de ${j.passos.length} · ${p.legenda}`);
   try {
     await p.fazer(a, id);
+    tempos.push({ passo: n, legenda: p.legenda, de, ate: seg() });
     console.log(`ok   ${n}. ${p.legenda}`);
   } catch (e) {
     falhou = true;
@@ -91,7 +96,8 @@ if (VIDEO) {
   const destino = `public/videos/${j.video}.webm`;
   mkdirSync("public/videos", { recursive: true });
   copyFileSync(await video.path(), destino);
-  console.log(`vídeo: ${destino}`);
+  writeFileSync(`public/videos/${j.video}.passos.json`, JSON.stringify(tempos, null, 1));
+  console.log(`vídeo: ${destino} (tempos dos passos em ${j.video}.passos.json; GIF: npm run gif -- ${j.video})`);
 } else {
   await page.close();
 }

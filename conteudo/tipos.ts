@@ -3,6 +3,8 @@ export type Passo = {
   texto: string;
   /** arquivo em public/prints/<perfil>/; vazio enquanto o print não foi capturado */
   print?: string;
+  /** GIF do trecho deste passo em public/gifs/ (npm run gif). No site, aparece no lugar do print; o PDF continua com o print */
+  gif?: string;
   /** caminho no menu do CMS, ex.: "Carta de Serviços › Serviços" */
   onde?: string;
   /** linguagem visual do destaque no print: "acao" = azul com número (botão, menu, link);

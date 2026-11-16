@@ -10,7 +10,8 @@
     "pdf": "node scripts/pdf.mjs",
     "jornada": "node scripts/jornada.mjs",
     "video": "node scripts/jornada.mjs criar --video --limpar",
-    "deploy": "next build && node scripts/pdf.mjs && vercel deploy out --prod --yes --project guia-carta-servico"
+    "deploy": "next build && node scripts/pdf.mjs && vercel deploy out --prod --yes --project guia-carta-servico",
+    "gif": "node scripts/gif.mjs"
   },
   "dependencies": {
     "@plataforma-xvia/ds-core": "file:./vendor/plataforma-xvia-ds-core-0.14.4.tgz",

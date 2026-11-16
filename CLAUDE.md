@@ -16,6 +16,7 @@ transforma o roteiro numa jornada em `scripts/jornadas/<nome>.mjs` (`npm run jor
 | 3 | Escrever as ações e os passos | `conteudo/<perfil>.ts` |
 | 4 | Roteiro dos prints e captura | `ROTEIRO` em `scripts/capturar.mjs`; `npm run prints` |
 | 5 | Roteiro do vídeo (Antonio) e gravação | `docs/roteiro-video-modelo.md` → `scripts/jornadas/<nome>.mjs`; `npm run jornada -- <nome> [id] --video` |
+| 5b | GIF de cada passo (site) | `npm run gif -- <video>` → `public/gifs/`; campo `gif` do passo em `conteudo/<perfil>.ts` |
 | 6 | PDF e conferência | `npm run build` e `npm run pdf` |
 | 7 | Validação do Fabio e publicação | `npm run deploy` |
 
@@ -85,3 +86,28 @@ transforma o roteiro numa jornada em `scripts/jornadas/<nome>.mjs` (`npm run jor
 `60-padroes/time/guia-de-sistema-com-ia.md` (processo e papéis), `60-padroes/time/capturar-prints-de-sistema-logado.md`
 (receita), `10-conhecimento/cms-carta-servico/navegar-no-cms-da-carta.md` (o CMS) e
 `20-projeto/guia-carta-servico/00-guia-carta-servico.md` (o projeto).
+
+## GIF no site, print no PDF (16/11/2026)
+
+O Kauã elogiou o guia, e o passo a passo ficou mais claro com movimento. No site, o passo com `gif` mostra o GIF
+no lugar do print. O PDF continua com o print: o GIF fica em `.so-tela` e o print em `.so-pdf`.
+
+Como fazer para uma ação nova:
+1. Grave a jornada com `--video`. O `jornada.mjs` grava junto `public/videos/<video>.passos.json`, com o segundo
+   em que cada passo começa e termina.
+2. Confira os trechos. Se um passo do guia juntar dois passos da jornada (ex.: escrever e clicar em Enviar), junte
+   os tempos à mão no `.passos.json`. A numeração do arquivo é a dos passos do guia.
+3. `npm run gif -- <video>` (ou `npm run gif -- <video> 2 3` para refazer só alguns). Sai em
+   `public/gifs/<video>-<passo>.gif`.
+4. No `conteudo/<perfil>.ts`, ponha `gif: "<video>-<passo>.gif"` no passo, ao lado do `print`.
+5. `npm run build`, `npm run pdf` e conferir: o site mostra o GIF; o PDF, o print.
+
+Regras:
+- Vídeo antigo sem `.passos.json`: tire uma folha de quadros e marque os tempos olhando a legenda "Passo N de M".
+  Foi assim no `gerente-enviar-para-aprovacao` (comando no histórico do commit).
+- O `gif.mjs` usa o ffmpeg que vem com o Playwright, o mais novo das pastas do Playwright: o antigo (ffmpeg-1011)
+  não lê o VP9 dos vídeos. Esse ffmpeg não tem o filtro `fps`: a taxa vai em `-r`.
+- O GIF é montado em Python com Pillow (`scripts/montar_gif.py`): 6 quadros por segundo, 960 px de largura, último
+  quadro parado 1,5 s. Cada GIF fica entre 0,8 e 1,8 MB. Se ficar pesado, baixe os quadros por segundo.
+- Abrir o vídeo no Edge sem janela (headless) e tirar print do `<video>` sai em branco: não use esse caminho.
+

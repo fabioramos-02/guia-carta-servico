@@ -26,11 +26,11 @@ export const coordenador: Perfil = {
       objetivo: "Cadastrar um serviço novo.",
       video: "/videos/coordenador-criar-carta.webm",
       passos: [
-        { titulo: "Comece uma carta nova", texto: "Em Serviços, clique no botão + no alto da lista.", print: "criar-0-novo.png", onde: "Serviços › botão + no alto", tipo: "acao", recorte: "elemento" },
+        { titulo: "Comece uma carta nova", texto: "Em Serviços, clique no botão + no alto da lista.", print: "criar-0-novo.png", gif: "coordenador-criar-carta-1.gif", onde: "Serviços › botão + no alto", tipo: "acao", recorte: "elemento" },
         {
           titulo: "Aba 1 — Descrição do Serviço",
           texto: "Preencha nome do serviço (3 a 5 palavras, começando por verbo), categoria e subcategoria, órgão, o que é o serviço, documentos necessários e quem pode utilizar. Público específico, nome popular, saiba mais e palavras-chave ajudam o cidadão a achar o serviço.",
-          print: "criar-1-descricao.png",
+          print: "criar-1-descricao.png", gif: "coordenador-criar-carta-2.gif",
           onde: "Serviços › + › aba Descrição do Serviço",
           tipo: "area",
           recorte: "secao",
@@ -38,7 +38,7 @@ export const coordenador: Perfil = {
         {
           titulo: "Aba 2 — Etapa do Serviço",
           texto: "Escolha o canal de prestação (presencial, online ou os dois) e escreva cada etapa na ordem em que a pessoa faz. Cada canal marcado precisa de ao menos uma etapa (botão Criar novo), senão o CMS não salva.",
-          print: "criar-2-etapas.png",
+          print: "criar-2-etapas.png", gif: "coordenador-criar-carta-3.gif",
           onde: "Serviços › + › aba Etapa do Serviço",
           tipo: "area",
           recorte: "secao",
@@ -46,7 +46,7 @@ export const coordenador: Perfil = {
         {
           titulo: "Aba 3 — Detalhes do Serviço",
           texto: "Informe o prazo de atendimento, o tipo de custo (gratuito ou pago), os locais de atendimento e o link do serviço, se houver.",
-          print: "criar-3-detalhes.png",
+          print: "criar-3-detalhes.png", gif: "coordenador-criar-carta-4.gif",
           onde: "Serviços › + › aba Detalhes do Serviço",
           tipo: "area",
           recorte: "secao",
@@ -54,7 +54,7 @@ export const coordenador: Perfil = {
         {
           titulo: "Salve",
           texto: "Clique no botão de confirmar (✓), no alto à direita. Os campos com asterisco são obrigatórios. Depois, avise o Gerente para enviar a carta para aprovação.",
-          print: "criar-4-salvar.png",
+          print: "criar-4-salvar.png", gif: "coordenador-criar-carta-5.gif",
           onde: "Carta nova › botão ✓ no alto à direita",
           tipo: "acao",
           recorte: "elemento",
