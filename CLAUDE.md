@@ -108,6 +108,7 @@ Regras:
 - O `gif.mjs` usa o ffmpeg que vem com o Playwright, o mais novo das pastas do Playwright: o antigo (ffmpeg-1011)
   não lê o VP9 dos vídeos. Esse ffmpeg não tem o filtro `fps`: a taxa vai em `-r`.
 - O GIF é montado em Python com Pillow (`scripts/montar_gif.py`): 6 quadros por segundo, 960 px de largura, último
-  quadro parado 1,5 s. Cada GIF fica entre 0,8 e 1,8 MB. Se ficar pesado, baixe os quadros por segundo.
+  quadro parado 1,5 s. Cada GIF fica entre 0,8 e 3 MB. Passo longo (mais de 20 s) fica pesado: refaça com `GIF_QPS=3 npm run gif -- <video> <passo>`
+  (o passo 2 do Coordenador, a aba 1 inteira, ficou com 5,3 MB assim).
 - Abrir o vídeo no Edge sem janela (headless) e tirar print do `<video>` sai em branco: não use esse caminho.
 
