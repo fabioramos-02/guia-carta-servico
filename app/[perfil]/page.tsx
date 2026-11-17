@@ -92,7 +92,7 @@ export default async function PaginaPerfil({ params }: { params: Promise<{ perfi
             )}
             {acao.aviso && <DsAlert tone="warning">{acao.aviso}</DsAlert>}
             {acao.video && <Video src={acao.video} titulo={`${acao.titulo} (vídeo)`} />}
-            <DsSteps headingLevel="3" items={JSON.stringify(acao.passos.map((p) => ({ title: p.titulo })))}>
+            <DsSteps headingLevel="3" items={JSON.stringify(acao.passos.map((p) => ({ title: p.previsto ? `${p.titulo} (em desenvolvimento)` : p.titulo })))}>
               {acao.passos.map((p, n) => (
                 <div key={n} slot={`description-${n + 1}`} className="passo">
                   <p>{p.texto.replace("{cms}", CMS)}</p>
@@ -113,7 +113,7 @@ export default async function PaginaPerfil({ params }: { params: Promise<{ perfi
                         loading="eager"
                       />
                     </div>
-                  ) : acao.previsto ? null : (
+                  ) : acao.previsto || p.previsto ? null : (
                     <p className="sem-print so-tela">Print desta etapa em preparação.</p>
                   )}
                 </div>

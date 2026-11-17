@@ -2,6 +2,7 @@ import type { Perfil } from "./tipos";
 
 // Conferido no CMS de homologação em 12/11/2026, com o perfil Coordenador (órgão SAD).
 // Prints: scripts/capturar.mjs (mesmo nome de arquivo do campo `print`).
+// Ordem das ações = jornada: entrar, achar, criar, mudar, corrigir, histórico (Fabio, 17/11/2026).
 export const coordenador: Perfil = {
   id: "coordenador",
   nome: "Coordenador",
@@ -16,10 +17,44 @@ export const coordenador: Perfil = {
   naoPode: [
     "Enviar a carta para aprovação (é o Gerente)",
     "Aprovar ou devolver uma carta (é o Aprovador Central, da CGE)",
-    "Excluir uma carta publicada",
+    "Excluir uma carta. Nem o Administrador exclui: a carta só pode ficar Inativa",
     "Ver cartas de outros órgãos",
   ],
   acoes: [
+    {
+      id: "entrar",
+      titulo: "Entrar no CMS",
+      objetivo: "Abrir o gerenciador de cartas com o seu usuário.",
+      passos: [
+        { titulo: "Abra o endereço do CMS", texto: "No navegador, acesse {cms}.", print: "" },
+        { titulo: "Clique em Entrar com SSO", texto: "Entre com o seu acesso. Na primeira vez, a SETDIG libera o seu perfil e o seu órgão.", print: "entrar-1-login.png", onde: "Tela de login", tipo: "acao", recorte: "elemento" },
+        {
+          titulo: "Conheça o menu",
+          texto: "À esquerda fica a área Carta de Serviço. Você vai usar mais o item Serviços, que lista as cartas do seu órgão.",
+          print: "entrar-2-menu.png",
+          onde: "Menu à esquerda › Carta de Serviços",
+          tipo: "area",
+          recorte: "secao",
+        },
+      ],
+    },
+    {
+      id: "encontrar",
+      titulo: "Encontrar uma carta",
+      objetivo: "Achar a carta do seu órgão na lista.",
+      passos: [
+        {
+          titulo: "Abra Serviços",
+          texto: "A lista mostra nome, categoria, órgão e situação (Ativo ou Inativo) de cada carta do seu órgão.",
+          print: "encontrar-1-lista.png",
+          onde: "Carta de Serviços › Serviços",
+          tipo: "acao",
+          recorte: "secao",
+        },
+        { titulo: "Busque pelo nome", texto: "Clique na lupa, no alto da lista, e digite parte do nome do serviço.", print: "encontrar-2-busca.png", onde: "Serviços › lupa no alto da lista", tipo: "acao", recorte: "elemento" },
+        { titulo: "Abra a carta", texto: "Clique na linha da carta. Ela abre na aba Descrição do Serviço.", print: "encontrar-3-carta.png", onde: "Serviços › carta escolhida", tipo: "area", recorte: "tela" },
+      ],
+    },
     {
       id: "criar",
       titulo: "Criar uma carta",
@@ -53,46 +88,18 @@ export const coordenador: Perfil = {
         },
         {
           titulo: "Salve",
-          texto: "Clique no botão de confirmar (✓), no alto à direita. Os campos com asterisco são obrigatórios. Depois, avise o Gerente para enviar a carta para aprovação.",
+          texto: "Clique no botão de confirmar (✓), no alto à direita. Os campos com asterisco são obrigatórios.",
           print: "criar-4-salvar.png", gif: "coordenador-criar-carta-5.gif",
           onde: "Carta nova › botão ✓ no alto à direita",
           tipo: "acao",
           recorte: "elemento",
         },
-      ],
-    },
-    {
-      id: "entrar",
-      titulo: "Entrar no CMS",
-      objetivo: "Abrir o gerenciador de cartas com o seu usuário.",
-      passos: [
-        { titulo: "Abra o endereço do CMS", texto: "No navegador, acesse {cms}.", print: "" },
-        { titulo: "Clique em Entrar com SSO", texto: "Entre com o seu acesso. Na primeira vez, a SETDIG libera o seu perfil e o seu órgão.", print: "entrar-1-login.png", onde: "Tela de login", tipo: "acao", recorte: "elemento" },
+        // ponytail: passo depois do Salve para não mexer na numeração das badges dos prints e GIFs (1 a 5)
         {
-          titulo: "Conheça o menu",
-          texto: "À esquerda fica a área Carta de Serviço. Você vai usar mais o item Serviços, que lista as cartas do seu órgão.",
-          print: "entrar-2-menu.png",
-          onde: "Menu à esquerda › Carta de Serviços",
-          tipo: "area",
-          recorte: "secao",
+          titulo: "Confira como o cidadão vai ver",
+          texto: "Abra a pré-visualização e confira a carta como ela vai aparecer no portal. Depois, avise o Gerente para enviar a carta para aprovação.",
+          previsto: true,
         },
-      ],
-    },
-    {
-      id: "encontrar",
-      titulo: "Encontrar uma carta",
-      objetivo: "Achar a carta do seu órgão na lista.",
-      passos: [
-        {
-          titulo: "Abra Serviços",
-          texto: "A lista mostra nome, categoria, órgão e situação (Ativo ou Inativo) de cada carta do seu órgão.",
-          print: "encontrar-1-lista.png",
-          onde: "Carta de Serviços › Serviços",
-          tipo: "acao",
-          recorte: "secao",
-        },
-        { titulo: "Busque pelo nome", texto: "Clique na lupa, no alto da lista, e digite parte do nome do serviço.", print: "encontrar-2-busca.png", onde: "Serviços › lupa no alto da lista", tipo: "acao", recorte: "elemento" },
-        { titulo: "Abra a carta", texto: "Clique na linha da carta. Ela abre na aba Descrição do Serviço.", print: "encontrar-3-carta.png", onde: "Serviços › carta escolhida", tipo: "area", recorte: "tela" },
       ],
     },
     {
@@ -129,21 +136,12 @@ export const coordenador: Perfil = {
       ],
     },
     {
-      id: "pre-visualizar",
-      titulo: "Pré-visualizar a carta",
-      objetivo: "Ver a carta como o cidadão vai ver no portal, antes de pedir o envio.",
-      previsto: true,
-      passos: [
-        { titulo: "Abra a carta", texto: "Abra a carta ou o rascunho que você quer conferir." },
-        { titulo: "Pré-visualize", texto: "Use a opção de pré-visualizar e confira o texto como aparece no portal." },
-      ],
-    },
-    {
       id: "corrigir-devolvida",
       titulo: "Corrigir uma carta devolvida",
-      objetivo: "Ajustar a carta que o Aprovador Central devolveu com apontamentos.",
-      aviso: "Hoje o Gerente repassa os apontamentos ao Coordenador. Ver o motivo direto na carta está previsto.",
+      objetivo: "Ajustar a carta que o Aprovador Central devolveu. Só o Gerente recebe o aviso da devolução.",
+      aviso: "O CMS avisa só o Gerente. Ele repassa ao Coordenador o que precisa mudar.",
       passos: [
+        { titulo: "Receba os apontamentos do Gerente", texto: "O Gerente diz qual carta voltou e o que o Aprovador Central pediu.", print: "" },
         { titulo: "Abra a carta devolvida", texto: "Abra a carta e a versão Rascunho.", print: "" },
         { titulo: "Corrija os campos apontados", texto: "Mude só o que foi pedido e salve.", print: "" },
         { titulo: "Avise o Gerente", texto: "O Gerente reenvia a carta para aprovação.", print: "" },

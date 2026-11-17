@@ -14,6 +14,8 @@ export type Passo = {
   /** enquadramento do print: "tela" = 2880x1800 completa (default; use para contexto); "elemento" =
    *  recorte no destaque + margem (botão específico); "secao" = recorte no contêiner pai (formulário). */
   recorte?: "tela" | "elemento" | "secao";
+  /** passo que o CMS ainda não tem: título ganha "(em desenvolvimento)" e não pede print */
+  previsto?: boolean;
 };
 
 export type Acao = {

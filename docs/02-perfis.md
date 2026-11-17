@@ -49,7 +49,8 @@ Nenhuma policy amplia onde a pessoa age.
 |---|---|
 | Coordenador não edita carta publicada | Edita a versão **Rascunho** da carta publicada (menu de versões no topo); o envio continua com o Gerente |
 | Coordenador pré-visualiza | Ainda não existe; o Kauã vai fazer. No guia: `previsto: true` |
-| Coordenador vê o motivo da devolução | Previsto, não está no sistema |
+| Coordenador vê o motivo da devolução | Previsto, não está no sistema. Só o Gerente recebe o aviso da devolução |
+| Admin e Gerente excluem rascunho | Ninguém exclui carta, nem o Administrador: a carta só fica Inativa (Fabio, 17/11/2026) |
 
 ## O que o sistema mostra ao Gerente (homologação, 13/11/2026)
 
